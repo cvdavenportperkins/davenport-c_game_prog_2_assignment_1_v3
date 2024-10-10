@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 0eecbad22359ad84b8c7e5628dc4be68
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - AS: {instanceID: 0}
+  - BoundarySFX: {instanceID: 0}
+  - DecaySFX: {instanceID: 0}
+  - PickUpSFX: {instanceID: 0}
+  - ComboSFX: {instanceID: 0}
+  - ScoreSFX: {instanceID: 0}
+  - SpawnSFX: {instanceID: 0}
+  - DespawnSFX: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
