@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static PlayerMovement Instance;
+    public static PlayerMovement PlayMove;
 
     public float moveSpeed = 0.08f;
     public float acceleration = 0.01f;
@@ -18,22 +18,33 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 arenaCenter;
     private float arenaRadius;
 
+    void Awake()
+    {
+        if (PlayMove == null)
+        {
+            PlayMove = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
-        GameObject player = GameObject.FindWithTag("Player");
-        rb = player.GetComponent<Rigidbody2D>();
-
+        rb = GetComponent<Rigidbody2D>();
         if (rb == null)
         {
             Debug.LogError("Rigidbody2D component is missing!");
             return;
         }
 
-        // Pull arena and goal parameters from GameManager singleton
-        arenaCenter = GameManager.instance.arenaCollider.bounds.center;
-        arenaRadius = GameManager.instance.arenaCollider.radius;
+        // Pull arena and goal parameters from GameMan singleton
+        arenaCenter = GameMan.arenaCollider.bounds.center;
+        arenaRadius = GameMan.arenaCollider.radius;
 
-        InitializePlayer();
+        InitializePlayer(arenaGameObject, goalGameObject);
     }
 
     public void InitializePlayer(GameObject arena, GameObject goal)
@@ -103,4 +114,3 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Player Position: " + transform.position);
     }
 }
-

@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    public static SoundManager SoundMan;
     public AudioSource AS;
     public AudioClip BoundarySFX, DecaySFX, PickUpSFX, ComboSFX, ScoreSFX, SpawnSFX, DespawnSFX;
 
-    public static SoundManager instance;
-
     void Awake()
     {
-        if (instance == null)
+        if (SoundMan == null)
         {
-            instance = this;
+            SoundMan = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -25,17 +24,5 @@ public class SoundManager : MonoBehaviour
     public void PlaySound(AudioClip clip)
     {
         AS.PlayOneShot(clip);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

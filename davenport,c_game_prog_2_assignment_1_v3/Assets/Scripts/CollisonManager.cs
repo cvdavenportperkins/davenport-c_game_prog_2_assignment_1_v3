@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisonManager : MonoBehaviour
+public class CollisionManager : MonoBehaviour
 {
+    public static CollisionManager CollMan;
     public Transform tailPrefab;
     public Transform tailParent;
     public int maxTailSegments = 10;
@@ -15,6 +16,19 @@ public class CollisonManager : MonoBehaviour
 
     public List<GameObject> tailSegments = new List<GameObject>();
     public Vector2 lastMoveDirection;
+
+    void Awake()
+    {
+        if (CollMan == null)
+        {
+            CollMan = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -29,9 +43,9 @@ public class CollisonManager : MonoBehaviour
 
     void Update()
     {
-        if (PlayerMovement.Instance != null)
+        if (PlayMove != null)
         {
-            direction = PlayerMovement.Instance.vel;
+            direction = PlayMove.vel;
 
             for (int i = tailSegments.Count - 1; i > 0; i--)
             {
@@ -45,11 +59,11 @@ public class CollisonManager : MonoBehaviour
             lastMoveDirection = rb.velocity.normalized;
 
             Vector3 position = transform.position;
-            if (Vector3.Distance(position, GameManager.instance.arenaCollider.bounds.center) > GameManager.instance.arenaCollider.radius)
+            if (Vector3.Distance(position, GameMan.arenaCollider.bounds.center) > GameMan.arenaCollider.radius)
             {
-                Vector3 fromCenter = position - GameManager.instance.arenaCollider.bounds.center;
-                fromCenter = fromCenter.normalized * GameManager.instance.arenaCollider.radius;
-                transform.position = GameManager.instance.arenaCollider.bounds.center + fromCenter;
+                Vector3 fromCenter = position - GameMan.arenaCollider.bounds.center;
+                fromCenter = fromCenter.normalized * GameMan.arenaCollider.radius;
+                transform.position = GameMan.arenaCollider.bounds.center + fromCenter;
             }
 
             Debug.Log("Player Position: " + transform.position);
@@ -59,7 +73,7 @@ public class CollisonManager : MonoBehaviour
             Debug.LogWarning("PlayerMovement is null, cannot update direction");
         }
 
-        if (GameManager.instance.isGameOver) return;
+        if (GameMan.isGameOver) return;
 
         if (hasTail)
         {
@@ -71,15 +85,15 @@ public class CollisonManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Food"))
         {
-            if (GameManager.instance.foodInstances.Contains(collision.gameObject))
+            if (GameMan.foodInstances.Contains(collision.gameObject))
             {
-                GameManager.instance.foodInstances.Remove(collision.gameObject);
+                GameMan.foodInstances.Remove(collision.gameObject);
             }
 
             AddTailSegment();
             Destroy(collision.gameObject);
-            GameManager.instance.AddScore(25);
-            Debug.Log("Food Collected Count: " + GameManager.instance.foodInstances.Count);
+            GameMan.AddScore(25);
+            Debug.Log("Food Collected Count: " + GameMan.foodInstances.Count);
         }
         else if (collision.gameObject.CompareTag("Boundary"))
         {
@@ -101,7 +115,7 @@ public class CollisonManager : MonoBehaviour
                 }
             }
 
-            GameManager.instance.AddScore(points);
+            GameMan.AddScore(points);
             foreach (GameObject segment in tailSegments)
             {
                 if (segment != null)
@@ -130,7 +144,7 @@ public class CollisonManager : MonoBehaviour
         Debug.Log("Add Tail Segment: " + newTailSegment.name);
         hasTail = true;
     }
-
+    
     void UpdateTailSegments()
     {
         if (tailSegments.Count == 0) return;
@@ -159,3 +173,4 @@ public class CollisonManager : MonoBehaviour
         Debug.Log("Bounce off Boundary: " + transform.position);
     }
 }
+

@@ -6,8 +6,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-
-    public static GameManager instance;
+    public static GameManager GameMan;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
@@ -32,6 +31,19 @@ public class GameManager : MonoBehaviour
     public AudioSource AS;
     public Collider2D goalCollider;
 
+    void Awake()
+    {
+        if (GameMan == null)
+        {
+            GameMan = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void AddScore(int points)
     {
         score += points;
@@ -42,10 +54,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("GameManager Start");
         Time.timeScale = 0.03f;
         gameOverText.gameObject.SetActive(false);
         youWinText.gameObject.SetActive(false);
@@ -58,17 +68,16 @@ public class GameManager : MonoBehaviour
             InstantiatePlayer();
         }
     }
-
+    
     void InstantiatePlayer()
     {
         Debug.Log("InstantiatePlayer called");
         GameObject player = Instantiate(playerPrefab);
         playerMovement = player.GetComponent<PlayerMovement>();
 
-        playerMovement.InitializePlayer(arena, goalGameObject);
+        playerMovement.InitializePlayer(GameMan.arena, GameMan.goalGameObject);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isGameOver) return;
@@ -112,7 +121,7 @@ public class GameManager : MonoBehaviour
         GameObject newFood = Instantiate(foodPrefab, foodPosition, Quaternion.identity);
         newFood.transform.SetParent(arena.transform, false);
         foodInstances.Add(newFood);
-        SoundManager.instance.PlaySound(SoundManager.instance.SpawnSFX);
+        SoundMan.PlaySound(SoundMan.SpawnSFX);
         Debug.Log("Food Spawned: " + newFood.name);
         StartCoroutine(DestroyFoodAfterTime(newFood, 5f));
     }
@@ -124,7 +133,7 @@ public class GameManager : MonoBehaviour
         {
             foodInstances.Remove(food);
             Destroy(food);
-            SoundManager.instance.PlaySound(SoundManager.instance.DespawnSFX);
+            SoundMan.PlaySound(SoundMan.DespawnSFX);
             Debug.Log("Despawn");
         }
         else
@@ -166,6 +175,5 @@ public class GameManager : MonoBehaviour
     {
         timerText.text = "Timer: " + Mathf.Max(0, gameTime).ToString("F2");
     }
-
 }
- 
+
