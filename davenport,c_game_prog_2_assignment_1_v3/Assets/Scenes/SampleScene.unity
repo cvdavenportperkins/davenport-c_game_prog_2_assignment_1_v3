@@ -1016,7 +1016,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1119247031}
-  - component: {fileID: 1119247033}
   - component: {fileID: 1119247032}
   m_Layer: 0
   m_Name: SoundManager
@@ -1136,26 +1135,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1119247033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1119247030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eecbad22359ad84b8c7e5628dc4be68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AS: {fileID: 1119247032}
-  BoundarySFX: {fileID: 8300000, guid: 9b142be7d3f506b4da3fadb1cc103f04, type: 3}
-  DecaySFX: {fileID: 8300000, guid: 8bbcfc0803a589e4cb789957d0a3d035, type: 3}
-  PickUpSFX: {fileID: 8300000, guid: 6dda549dcdf53994f832fb479c294783, type: 3}
-  ComboSFX: {fileID: 8300000, guid: 896aec92650a60d479d73f0d680ae586, type: 3}
-  ScoreSFX: {fileID: 8300000, guid: 6901b229349a98a45b64c8be6eb09573, type: 3}
-  SpawnSFX: {fileID: 8300000, guid: 7c4053fb4ff84f944919aa871c3b2483, type: 3}
-  DespawnSFX: {fileID: 8300000, guid: 71985ebe7ddb5c34489ed1f0dcc9ea5f, type: 3}
 --- !u!1 &1362528756
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,7 +1219,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1425860787}
-  - component: {fileID: 1425860786}
   m_Layer: 0
   m_Name: PlayerMovement
   m_TagString: Untagged
@@ -1248,26 +1226,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1425860786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425860785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1f0d037b75fe9c4fabfa85d4a06e1ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0.08
-  acceleration: 0.01
-  deceleration: 0.01
-  vel: {x: 0, y: 0}
-  rb: {fileID: -4827614274241119481, guid: 252d04f5d60a5c546b41a8a767286d4f, type: 3}
-  maxSpeed: 0.12
-  goalGameObject: {fileID: 274651535}
-  arenaGameObject: {fileID: 564895052}
 --- !u!4 &1425860787
 Transform:
   m_ObjectHideFlags: 0
@@ -1468,7 +1426,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2109855388}
-  - component: {fileID: 2109855389}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1491,40 +1448,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2109855389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2109855387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a0086461e44e954986cb876cf8276a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 2130333196}
-  gameOverText: {fileID: 450794122}
-  youWinText: {fileID: 64373340}
-  timerText: {fileID: 459673021}
-  score: 0
-  health: 3
-  gameTime: 45
-  points: 0
-  foodPrefab: {fileID: 7609924162338859854, guid: f84bdc29dbf4d694eb64b552163dace8, type: 3}
-  spawnInterval: 2
-  timer: 0
-  foodInstances: []
-  arena: {fileID: 564895052}
-  arenaCollider: {fileID: 564895055}
-  maxFoodInstances: 10
-  isGameOver: 0
-  playerPrefab: {fileID: 9021753242236813581, guid: 252d04f5d60a5c546b41a8a767286d4f, type: 3}
-  tailSegmentPrefab: {fileID: 1202101394991409241, guid: a801035807ad66b438f128173d9d9eed, type: 3}
-  goalGameObject: {fileID: 274651535}
-  playerMovement: {fileID: 1425860786}
-  AS: {fileID: 1119247032}
-  goalCollider: {fileID: 274651538}
 --- !u!1 &2130333194
 GameObject:
   m_ObjectHideFlags: 0
